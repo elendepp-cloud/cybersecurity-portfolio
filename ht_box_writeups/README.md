@@ -12,9 +12,23 @@ This directory contains hands-on write-ups from cybersecurity training platforms
 
 ## Write-ups
 
-| Machine / Lab | Platform | Topics | Status |
+## Hack The Box Machines
+
+| Machine | Platform | Topics | Status |
 |---|---|---|---|
-| Fireflow | Hack The Box | Enumeration, tunneling, network pivoting | In Progress |
+| Nexus | Hack The Box | Enumeration, exploitation, privilege escalation | In Progress — Root flag remaining |
+| Cap | Hack The Box | Reconnaissance, enumeration, vulnerability analysis | Studied |
+| Layover | Hack The Box | Enumeration, web security, exploitation | Studied |
+| Touch | Hack The Box | Windows enumeration, system analysis | Studied |
+| Fireflow | Hack The Box | Network enumeration, tunneling, pivoting | In Progress |
+
+## Progress
+
+- **Nexus:** Nearly completed. Working on obtaining the root flag.
+- **Cap:** Studied the machine and its attack path.
+- **Layover:** Explored the machine and its techniques.
+- **Touch:** Studied the machine and its attack path.
+- **Fireflow:** Working through the lab and network pivoting techniques.
 
 ## Methodology
 
