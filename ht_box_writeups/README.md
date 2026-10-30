@@ -1,26 +1,33 @@
 # HTB & CTF Write-ups
 
-This directory contains technical notes and write-ups from authorized cybersecurity training environments.
+This directory contains hands-on write-ups from cybersecurity training platforms and authorized lab environments.
 
-## Write-up Structure
+## Objectives
 
-Each machine or challenge should document:
+- Practice network reconnaissance and enumeration
+- Identify potential vulnerabilities
+- Understand exploitation techniques
+- Explore Linux and Windows privilege escalation
+- Document penetration testing methodology
 
-- Target overview
-- Initial reconnaissance
-- Port and service enumeration
-- Vulnerability identification
-- Exploitation methodology
-- Privilege escalation
-- Key findings
-- Lessons learned
+## Write-ups
 
-## Labs
-
-| Lab | Difficulty | Topics | Status |
+| Machine / Lab | Platform | Topics | Status |
 |---|---|---|---|
-| Fireflow | — | Enumeration, tunneling, pivoting | In Progress |
+| Fireflow | Hack The Box | Enumeration, tunneling, network pivoting | In Progress |
+
+## Methodology
+
+Each write-up may include:
+
+1. Lab overview
+2. Reconnaissance
+3. Port and service enumeration
+4. Vulnerability analysis
+5. Exploitation
+6. Privilege escalation
+7. Lessons learned
 
 ## Disclaimer
 
-All activities are performed in authorized training environments.
+All activities are performed exclusively in authorized training environments.
