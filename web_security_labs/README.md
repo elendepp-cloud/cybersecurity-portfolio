@@ -12,12 +12,17 @@ This directory contains practical exercises and research focused on identifying,
 A hands-on Flask application demonstrating vulnerable and secure implementations of common web vulnerabilities, including XSS, CSRF, file upload vulnerabilities, path traversal, and command injection.
 | Vulnerability | Description | Status |
 |---|---|---|
-| Cross-Site Scripting (XSS) | Client-side script injection | Practicing |
+| Cross-Site Scripting (XSS) | Client-side script injection (Reflected, Stored, DOM-based) | Practicing |
 | SQL Injection (SQLi) | Database query manipulation | Practicing |
 | Insecure Direct Object Reference (IDOR) | Unauthorized object access | Practicing |
 | Cross-Site Request Forgery (CSRF) | Unauthorized actions through authenticated sessions | Practicing |
 | JSON Web Token (JWT) | Token validation and implementation weaknesses | Practicing |
 | Authentication | Login and session security | Learning |
+| Server-Side Request Forgery (SSRF) | Forcing a server to make unauthorized requests to internal or external resources | Practicing |
+| Path Traversal | Accessing files outside the intended directory | Practicing |
+| Unrestricted File Upload | Uploading potentially dangerous or unauthorized files | Practicing |
+| OS Command Injection | Executing unauthorized operating system commands through application input | Practicing |
+| Race Condition | Exploiting timing issues in concurrent operations | Practicing |
 
 ## Lab Documentation
 
