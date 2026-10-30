@@ -5,9 +5,11 @@ This directory contains practical exercises and research focused on identifying,
 ## Vulnerability Categories
 ## Featured Project
 
-### [Flask Security Lab](./flask-security-lab/)
+## Featured Project
 
-A Python Flask application demonstrating common web vulnerabilities through vulnerable and secure implementations.
+### [Flask Security Lab](https://github.com/elendepp-cloud/security-lab-v2)
+
+A hands-on Flask application demonstrating vulnerable and secure implementations of common web vulnerabilities, including XSS, CSRF, file upload vulnerabilities, path traversal, and command injection.
 | Vulnerability | Description | Status |
 |---|---|---|
 | Cross-Site Scripting (XSS) | Client-side script injection | Practicing |
