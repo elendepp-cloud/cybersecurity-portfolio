@@ -1,28 +1,36 @@
 # Web Security Labs
 
-Practical research and exercises focused on web application vulnerabilities.
+This directory contains practical exercises and research focused on identifying, understanding, and mitigating web application vulnerabilities.
 
-## Topics
+## Vulnerability Categories
 
-- Cross-Site Scripting (XSS)
-- SQL Injection (SQLi)
-- Insecure Direct Object References (IDOR)
-- Cross-Site Request Forgery (CSRF)
-- JSON Web Token (JWT) vulnerabilities
-- Authentication and access control
+| Vulnerability | Description | Status |
+|---|---|---|
+| Cross-Site Scripting (XSS) | Client-side script injection | Practicing |
+| SQL Injection (SQLi) | Database query manipulation | Practicing |
+| Insecure Direct Object Reference (IDOR) | Unauthorized object access | Practicing |
+| Cross-Site Request Forgery (CSRF) | Unauthorized actions through authenticated sessions | Practicing |
+| JSON Web Token (JWT) | Token validation and implementation weaknesses | Practicing |
+| Authentication | Login and session security | Learning |
 
 ## Lab Documentation
 
-Each lab should include:
+Each practical exercise aims to include:
 
 1. Vulnerability overview
-2. Vulnerable behavior
-3. Reproduction steps
-4. Security impact
-5. Secure implementation
-6. Mitigation
+2. Lab environment
+3. Testing methodology
+4. Steps to reproduce
+5. Technical evidence
+6. Security impact
+7. Mitigation and secure implementation
+8. Key takeaways
 
-## Learning Resources
+## Learning Platforms
 
-- PortSwigger Web Security Academy
-- OWASP Web Security Testing Guide
+- [PortSwigger Web Security Academy](https://portswigger.net/web-security)
+- [OWASP](https://owasp.org/)
+
+## Disclaimer
+
+All testing is conducted in authorized educational environments and intentionally vulnerable applications.
