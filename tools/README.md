@@ -13,8 +13,12 @@ This directory contains practical notes, command references, and small scripts r
 - **Burp Suite** — Web traffic interception and security testing.
 
 ### Network Tunneling & Pivoting
-- **SSH** — Secure remote access and port forwarding.
-- **Ligolo-ng** — Tunneling and network pivoting.
+
+- SSH Local Port Forwarding
+- SSH Remote Port Forwarding
+- SOCKS Proxy
+- Ligolo-ng
+- Network Pivoting
 
 ### Programming
 - **Python** — Scripting and security automation.
