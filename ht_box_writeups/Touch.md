@@ -392,6 +392,7 @@ then the MySQL process has SYSTEM-level privileges.
 When a UDF function is executed inside the MySQL process, it can perform operations using that process's security context.
 
 This creates the possibility of executing operating-system commands with the privileges of the MySQL service.
+<img width="1920" height="1140" alt="Screenshot 2026-11-04 132555" src="https://github.com/user-attachments/assets/c97a0e3b-f31e-4308-ad2b-3d83c0f5250d" />
 
 ### The important distinction
 
