@@ -7,7 +7,7 @@ This directory contains practical exercises and research focused on identifying,
 
 ### [Tunneling-Lab](https://github.com/elendepp-cloud/Tunneling-Lab)
 Hands-on networking project exploring SSH tunneling, local and remote port forwarding, SOCKS proxies, Ligolo-ng, and network pivoting.
-### [Flask Security Lab]
+### [Flask Security Lab](https://github.com/elendepp-cloud/security-lab-v2)
 A practical Python Flask project demonstrating common web application vulnerabilities and their secure implementations.
 
 | Vulnerability | Description | Status |
